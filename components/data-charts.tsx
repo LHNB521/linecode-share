@@ -163,14 +163,14 @@ export function DataCharts({ spots }: DataChartsProps) {
   }, [spots])
 
   return (
-    <div className="h-full space-y-4">
-      <div className="h-[calc(33.333%-0.67rem)] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.3)] p-4">
+    <div className="h-full flex flex-col gap-4">
+      <div className="flex-1 min-h-[280px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.3)] p-4">
         <div ref={categoryChartRef} className="w-full h-full" />
       </div>
-      <div className="h-[calc(33.333%-0.67rem)] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.3)] p-4">
+      <div className="flex-1 min-h-[280px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.3)] p-4">
         <div ref={pieChartRef} className="w-full h-full" />
       </div>
-      <div className="h-[calc(33.333%-0.67rem)] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.3)] p-4">
+      <div className="flex-1 min-h-[280px] bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-lg border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.3)] p-4">
         <div ref={districtChartRef} className="w-full h-full" />
       </div>
     </div>

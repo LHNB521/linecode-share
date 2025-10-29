@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import type { Spot } from "@/lib/storage"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 import Image from "next/image"
@@ -23,18 +22,13 @@ const funnyMessages = [
 ]
 
 export function LuckyGame({ spots }: LuckyGameProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [isSpinning, setIsSpinning] = useState(false)
   const [result, setResult] = useState<Spot | null>(null)
   const [message, setMessage] = useState("")
 
-  const categories = Array.from(new Set(spots.map((s) => s.category)))
-
   const handleSpin = () => {
-    const filteredSpots = selectedCategory === "all" ? spots : spots.filter((s) => s.category === selectedCategory)
-
-    if (filteredSpots.length === 0) {
-      setMessage("该分类下还没有分享哦~")
+    if (spots.length === 0) {
+      setMessage("还没有分享哦~")
       return
     }
 
@@ -43,8 +37,8 @@ export function LuckyGame({ spots }: LuckyGameProps) {
     setMessage("")
 
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * filteredSpots.length)
-      const randomSpot = filteredSpots[randomIndex]
+      const randomIndex = Math.floor(Math.random() * spots.length)
+      const randomSpot = spots[randomIndex]
       const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)]
 
       setResult(randomSpot)
@@ -58,20 +52,6 @@ export function LuckyGame({ spots }: LuckyGameProps) {
       <h2 className="text-xl font-bold text-cyan-400 mb-4">幸运抽奖</h2>
 
       <div className="space-y-4">
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger className="bg-slate-800/50 border-cyan-500/30 text-white">
-            <SelectValue placeholder="全部分类" />
-          </SelectTrigger>
-          <SelectContent className="bg-slate-800 border-cyan-500/30">
-            <SelectItem value="all">全部分类</SelectItem>
-            {categories.map((cat) => (
-              <SelectItem key={cat} value={cat}>
-                {cat}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
         <Button
           onClick={handleSpin}
           disabled={isSpinning}
@@ -112,7 +92,7 @@ export function LuckyGame({ spots }: LuckyGameProps) {
         ) : (
           <div className="text-center text-gray-500">
             <Sparkles className="w-16 h-16 mx-auto mb-4 text-cyan-500/30" />
-            <p>选择分类后点击按钮</p>
+            <p>点击按钮</p>
             <p className="text-sm">开始你的幸运之旅</p>
           </div>
         )}

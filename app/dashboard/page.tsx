@@ -46,12 +46,13 @@ export default function DashboardPage() {
         </h1>
       </div>
 
-      <div className="flex flex-col lg:grid lg:grid-cols-12 gap-4 px-4 pb-4">
-        <div className="lg:col-span-3 h-[500px] lg:h-[calc(100vh-140px)]">
+      <div className="flex flex-col lg:grid lg:grid-cols-12 gap-4 px-2 sm:px-4 pb-4">
+        {/* 左侧分享列表 */}
+        <div className="lg:col-span-3 h-[600px] lg:h-[calc(100vh-140px)]">
           <SpotsList spots={spots} />
         </div>
 
-        <div className="lg:col-span-6 h-auto lg:h-[calc(100vh-140px)]">
+        <div className="lg:col-span-6 h-[900px] lg:h-[calc(100vh-140px)]">
           <DataCharts spots={spots} />
         </div>
 

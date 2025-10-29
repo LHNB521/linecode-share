@@ -41,11 +41,20 @@ async function saveImage(base64Data: string, spotId: string): Promise<string> {
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, context: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params
+    const { id } = await context.params
+    console.log("[v0] DELETE request for spot ID:", id)
+
     const spots = await readSpots()
+    console.log("[v0] Total spots:", spots.length)
+    console.log(
+      "[v0] Spot IDs:",
+      spots.map((s) => s.id),
+    )
+
     const spotIndex = spots.findIndex((s) => s.id === id)
+    console.log("[v0] Found spot at index:", spotIndex)
 
     if (spotIndex === -1) {
       return NextResponse.json({ error: "Spot not found" }, { status: 404 })
@@ -62,12 +71,21 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, context: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params
+    const { id } = await context.params
+    console.log("[v0] PUT request for spot ID:", id)
+
     const body = await request.json()
     const spots = await readSpots()
+    console.log("[v0] Total spots:", spots.length)
+    console.log(
+      "[v0] Spot IDs:",
+      spots.map((s) => s.id),
+    )
+
     const spotIndex = spots.findIndex((s) => s.id === id)
+    console.log("[v0] Found spot at index:", spotIndex)
 
     if (spotIndex === -1) {
       return NextResponse.json({ error: "Spot not found" }, { status: 404 })
