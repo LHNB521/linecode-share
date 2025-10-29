@@ -13,13 +13,21 @@ export function Header() {
           <span className="text-xl font-semibold text-foreground">生活分享</span>
         </Link>
 
-        <Link href="/add">
-          <Button className="gap-2">
-            <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">添加分享</span>
-            <span className="sm:hidden">添加</span>
-          </Button>
-        </Link>
+        <div className="flex gap-3">
+          <Link href="/dashboard">
+            <Button variant="outline" className="gap-2 bg-transparent">
+              <span className="hidden sm:inline">数据大屏</span>
+              <span className="sm:hidden">大屏</span>
+            </Button>
+          </Link>
+          <Link href="/add">
+            <Button className="gap-2">
+              <Plus className="h-4 w-4" />
+              <span className="hidden sm:inline">添加分享</span>
+              <span className="sm:hidden">添加</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     </header>
   )

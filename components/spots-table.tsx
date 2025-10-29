@@ -18,7 +18,6 @@ export function SpotsTable() {
   const [categories, setCategories] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
 
-  // Load spots from server
   useEffect(() => {
     async function loadSpots() {
       try {
@@ -110,92 +109,90 @@ export function SpotsTable() {
           </div>
         </div>
       ) : (
-        <div className="border rounded-lg">
-          <div className="overflow-x-auto">
-            <div className="max-h-[600px] overflow-y-auto">
-              <Table className="min-w-[800px]">
-                <TableHeader className="sticky top-0 bg-background z-10 shadow-sm">
-                  <TableRow>
-                    <TableHead className="w-[80px]">图片</TableHead>
-                    <TableHead className="min-w-[120px]">名称</TableHead>
-                    <TableHead className="min-w-[80px]">分类</TableHead>
-                    <TableHead className="min-w-[100px]">类型</TableHead>
-                    <TableHead className="min-w-[120px]">区域</TableHead>
-                    <TableHead className="min-w-[100px]">人均消费</TableHead>
-                    <TableHead className="min-w-[200px]">评价</TableHead>
-                    <TableHead className="min-w-[100px]">日期</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredSpots.map((spot) => (
-                    <TableRow key={spot.id}>
-                      <TableCell>
-                        {spot.image ? (
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded border hover:opacity-80 transition-opacity">
-                                <Image
-                                  src={spot.image || "/placeholder.svg"}
-                                  alt={spot.name}
-                                  fill
-                                  className="object-cover"
-                                />
-                              </div>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-3xl">
-                              <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-                                <Image
-                                  src={spot.image || "/placeholder.svg"}
-                                  alt={spot.name}
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </DialogContent>
-                          </Dialog>
-                        ) : (
-                          <div className="h-16 w-16 rounded border bg-muted flex items-center justify-center text-xs text-muted-foreground">
-                            无图片
-                          </div>
-                        )}
-                      </TableCell>
-                      <TableCell className="font-medium">{spot.name}</TableCell>
-                      <TableCell>
-                        <Badge variant="secondary">{spot.category}</Badge>
-                      </TableCell>
-                      <TableCell>
-                        {spot.type ? (
-                          <Badge variant="outline">{spot.type}</Badge>
-                        ) : (
-                          <span className="text-muted-foreground text-sm">-</span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <div className="space-y-1">
-                          <div className="text-sm">
-                            {spot.city} · {spot.district}
-                          </div>
-                          {spot.location && <div className="text-xs text-muted-foreground">{spot.location}</div>}
+        <div className="border rounded-lg overflow-hidden">
+          <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-280px)] scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+            <Table className="min-w-[800px]">
+              <TableHeader className="sticky top-0 bg-background z-10 shadow-sm border-b">
+                <TableRow>
+                  <TableHead className="w-[80px] bg-background">图片</TableHead>
+                  <TableHead className="min-w-[120px] bg-background">名称</TableHead>
+                  <TableHead className="min-w-[80px] bg-background">分类</TableHead>
+                  <TableHead className="min-w-[100px] bg-background">类型</TableHead>
+                  <TableHead className="min-w-[120px] bg-background">区域</TableHead>
+                  <TableHead className="min-w-[100px] bg-background">人均消费</TableHead>
+                  <TableHead className="min-w-[200px] bg-background">评价</TableHead>
+                  <TableHead className="min-w-[100px] bg-background">日期</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredSpots.map((spot) => (
+                  <TableRow key={spot.id}>
+                    <TableCell>
+                      {spot.image ? (
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded border hover:opacity-80 transition-opacity">
+                              <Image
+                                src={spot.image || "/placeholder.svg"}
+                                alt={spot.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-3xl">
+                            <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+                              <Image
+                                src={spot.image || "/placeholder.svg"}
+                                alt={spot.name}
+                                fill
+                                className="object-contain"
+                              />
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      ) : (
+                        <div className="h-16 w-16 rounded border bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                          无图片
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        {spot.averagePrice ? (
-                          <span className="text-sm">{spot.averagePrice}</span>
-                        ) : (
-                          <span className="text-muted-foreground text-sm">-</span>
-                        )}
-                      </TableCell>
-                      <TableCell className="max-w-[300px]">
-                        <p className="text-sm text-muted-foreground line-clamp-2">{spot.review}</p>
-                      </TableCell>
-                      <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
-                        {new Date(spot.createdAt).toLocaleDateString("zh-CN")}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+                      )}
+                    </TableCell>
+                    <TableCell className="font-medium">{spot.name}</TableCell>
+                    <TableCell>
+                      <Badge variant="secondary">{spot.category}</Badge>
+                    </TableCell>
+                    <TableCell>
+                      {spot.type ? (
+                        <Badge variant="outline">{spot.type}</Badge>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">-</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <div className="space-y-1">
+                        <div className="text-sm">
+                          {spot.city} · {spot.district}
+                        </div>
+                        {spot.location && <div className="text-xs text-muted-foreground">{spot.location}</div>}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {spot.averagePrice ? (
+                        <span className="text-sm">{spot.averagePrice}</span>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">-</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="max-w-[300px]">
+                      <p className="text-sm text-muted-foreground line-clamp-2">{spot.review}</p>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                      {new Date(spot.createdAt).toLocaleDateString("zh-CN")}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}
