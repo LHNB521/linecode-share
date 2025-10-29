@@ -13,10 +13,9 @@ export function SpotsList({ spots }: SpotsListProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const categories = ["all", ...Array.from(new Set(spots.map((s) => s.category)))]
+  const categories = Array.from(new Set(spots.map((s) => s.category)))
   const filteredSpots = selectedCategory === "all" ? spots : spots.filter((s) => s.category === selectedCategory)
 
-  // 自动滚动
   useEffect(() => {
     if (filteredSpots.length === 0) return
 
@@ -38,11 +37,11 @@ export function SpotsList({ spots }: SpotsListProps) {
         <h2 className="text-xl font-bold text-cyan-400 mb-3">分享列表</h2>
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger className="bg-slate-800/50 border-cyan-500/30 text-white">
-            <SelectValue placeholder="选择分类" />
+            <SelectValue placeholder="全部分类" />
           </SelectTrigger>
           <SelectContent className="bg-slate-800 border-cyan-500/30">
             <SelectItem value="all">全部分类</SelectItem>
-            {categories.slice(1).map((cat) => (
+            {categories.map((cat) => (
               <SelectItem key={cat} value={cat}>
                 {cat}
               </SelectItem>
@@ -51,7 +50,7 @@ export function SpotsList({ spots }: SpotsListProps) {
         </Select>
       </div>
 
-      <div className="flex-1 space-y-3 overflow-hidden">
+      <div className="flex-1 space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-500/50 scrollbar-track-slate-800/30">
         {displaySpots.map((spot, idx) => (
           <div
             key={`${spot.id}-${idx}`}

@@ -28,7 +28,7 @@ export function LuckyGame({ spots }: LuckyGameProps) {
   const [result, setResult] = useState<Spot | null>(null)
   const [message, setMessage] = useState("")
 
-  const categories = ["all", ...Array.from(new Set(spots.map((s) => s.category)))]
+  const categories = Array.from(new Set(spots.map((s) => s.category)))
 
   const handleSpin = () => {
     const filteredSpots = selectedCategory === "all" ? spots : spots.filter((s) => s.category === selectedCategory)
@@ -42,7 +42,6 @@ export function LuckyGame({ spots }: LuckyGameProps) {
     setResult(null)
     setMessage("")
 
-    // 模拟轮盘旋转
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * filteredSpots.length)
       const randomSpot = filteredSpots[randomIndex]
@@ -61,11 +60,11 @@ export function LuckyGame({ spots }: LuckyGameProps) {
       <div className="space-y-4">
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger className="bg-slate-800/50 border-cyan-500/30 text-white">
-            <SelectValue placeholder="选择分类" />
+            <SelectValue placeholder="全部分类" />
           </SelectTrigger>
           <SelectContent className="bg-slate-800 border-cyan-500/30">
             <SelectItem value="all">全部分类</SelectItem>
-            {categories.slice(1).map((cat) => (
+            {categories.map((cat) => (
               <SelectItem key={cat} value={cat}>
                 {cat}
               </SelectItem>
@@ -83,7 +82,6 @@ export function LuckyGame({ spots }: LuckyGameProps) {
         </Button>
       </div>
 
-      {/* 轮盘动画区域 */}
       <div className="flex-1 flex items-center justify-center my-6">
         {isSpinning ? (
           <div className="relative w-48 h-48">
@@ -120,7 +118,6 @@ export function LuckyGame({ spots }: LuckyGameProps) {
         )}
       </div>
 
-      {/* 幽默提示 */}
       {message && (
         <div className="text-center p-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-lg border border-cyan-500/30 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <p className="text-cyan-300 font-medium">{message}</p>

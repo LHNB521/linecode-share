@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react"
 import { getSpots, type Spot } from "@/lib/storage"
 import { SpotsList } from "@/components/spots-list-scroll"
-import { StatsChart } from "@/components/stats-chart"
-import { MapView } from "@/components/map-view"
+import { DataCharts } from "@/components/data-charts"
 import { LuckyGame } from "@/components/lucky-game"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
@@ -32,45 +31,32 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0e27] text-white overflow-hidden">
-      {/* 返回按钮 */}
+    <div className="min-h-screen bg-[#0a0e27] text-white overflow-auto">
       <Link
         href="/"
-        className="absolute top-4 left-4 z-50 flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors"
+        className="fixed top-4 left-4 z-50 flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors bg-slate-900/80 px-3 py-2 rounded-lg backdrop-blur-sm"
       >
         <ArrowLeft className="h-5 w-5" />
-        <span>返回首页</span>
+        <span className="hidden sm:inline">返回首页</span>
       </Link>
 
-      {/* 标题 */}
-      <div className="text-center py-6">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+      <div className="text-center py-4 sm:py-6">
+        <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent px-4">
           生活分享数据大屏
         </h1>
       </div>
 
-      {/* 主要内容区域 */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 px-4 pb-4 h-[calc(100vh-120px)]">
-        {/* 左侧栏 */}
-        <div className="lg:col-span-3 space-y-4 flex flex-col">
-          {/* 分享列表 */}
-          <div className="flex-1 min-h-0">
-            <SpotsList spots={spots} />
-          </div>
-
-          {/* 统计图表 */}
-          <div className="h-[300px]">
-            <StatsChart spots={spots} />
-          </div>
+      <div className="flex flex-col lg:grid lg:grid-cols-12 gap-4 px-4 pb-4">
+        <div className="lg:col-span-3 h-[500px] lg:h-[calc(100vh-140px)]">
+          <SpotsList spots={spots} />
         </div>
 
-        {/* 中间地图 */}
-        <div className="lg:col-span-6">
-          <MapView spots={spots} />
+        <div className="lg:col-span-6 h-auto lg:h-[calc(100vh-140px)]">
+          <DataCharts spots={spots} />
         </div>
 
         {/* 右侧游戏 */}
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-3 h-[600px] lg:h-[calc(100vh-140px)]">
           <LuckyGame spots={spots} />
         </div>
       </div>
